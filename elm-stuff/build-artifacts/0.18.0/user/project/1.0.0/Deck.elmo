@@ -1,0 +1,178 @@
+var _user$project$Deck$shuffleDeck = F2(
+	function (deck, xs) {
+		return _elm_lang$core$Tuple$first(
+			_elm_lang$core$List$unzip(
+				A2(
+					_elm_lang$core$List$sortBy,
+					_elm_lang$core$Tuple$second,
+					A3(
+						_elm_lang$core$List$map2,
+						F2(
+							function (v0, v1) {
+								return {ctor: '_Tuple2', _0: v0, _1: v1};
+							}),
+						deck,
+						xs))));
+	});
+var _user$project$Deck$deal = function (deck) {
+	var restOfDeck = _elm_lang$core$List$tail(deck);
+	var dealtCard = _elm_lang$core$List$head(deck);
+	return {ctor: '_Tuple2', _0: dealtCard, _1: restOfDeck};
+};
+var _user$project$Deck$Card = F4(
+	function (a, b, c, d) {
+		return {index: a, suit: b, rank: c, facing: d};
+	});
+var _user$project$Deck$Up = {ctor: 'Up'};
+var _user$project$Deck$Down = {ctor: 'Down'};
+var _user$project$Deck$createCard = F3(
+	function (index, rank, suit) {
+		return A4(_user$project$Deck$Card, index, rank, suit, _user$project$Deck$Down);
+	});
+var _user$project$Deck$generateDeck = function () {
+	var ranks = _elm_lang$core$List$concat(
+		A2(
+			_elm_lang$core$List$repeat,
+			4,
+			A2(_elm_lang$core$List$range, 2, 13)));
+	var suits = _elm_lang$core$List$sort(
+		_elm_lang$core$List$concat(
+			A2(
+				_elm_lang$core$List$repeat,
+				13,
+				{
+					ctor: '::',
+					_0: 'Spades',
+					_1: {
+						ctor: '::',
+						_0: 'Clubs',
+						_1: {
+							ctor: '::',
+							_0: 'Diamonds',
+							_1: {
+								ctor: '::',
+								_0: 'Hearts',
+								_1: {ctor: '[]'}
+							}
+						}
+					}
+				})));
+	var deckIndex = A2(_elm_lang$core$List$range, 1, 13 * 4);
+	return A4(_elm_lang$core$List$map3, _user$project$Deck$createCard, deckIndex, suits, ranks);
+}();
+var _user$project$Deck$shortDisplayCardString = function (card) {
+	if (_elm_lang$core$Native_Utils.eq(card.facing, _user$project$Deck$Down)) {
+		return 'Back';
+	} else {
+		var suit = A2(_elm_lang$core$String$left, 1, card.suit);
+		var _p0 = card.rank;
+		switch (_p0) {
+			case 1:
+				return A2(_elm_lang$core$Basics_ops['++'], 'A ', suit);
+			case 13:
+				return A2(_elm_lang$core$Basics_ops['++'], 'K ', suit);
+			case 12:
+				return A2(_elm_lang$core$Basics_ops['++'], 'Q ', suit);
+			case 11:
+				return A2(_elm_lang$core$Basics_ops['++'], 'J ', suit);
+			default:
+				return A2(
+					_elm_lang$core$Basics_ops['++'],
+					_elm_lang$core$Basics$toString(card.rank),
+					A2(_elm_lang$core$Basics_ops['++'], ' ', suit));
+		}
+	}
+};
+var _user$project$Deck$displayCardSvg = F2(
+	function (card, position) {
+		var multipliedPosition = position * 20;
+		var translate_text = A2(
+			_elm_lang$core$Basics_ops['++'],
+			'translate(',
+			A2(
+				_elm_lang$core$Basics_ops['++'],
+				_elm_lang$core$Basics$toString(70 + multipliedPosition),
+				',35)'));
+		return A2(
+			_elm_lang$svg$Svg$g,
+			{ctor: '[]'},
+			{
+				ctor: '::',
+				_0: A2(
+					_elm_lang$svg$Svg$rect,
+					{
+						ctor: '::',
+						_0: _elm_lang$svg$Svg_Attributes$x(
+							_elm_lang$core$Basics$toString(10 + multipliedPosition)),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$svg$Svg_Attributes$y('10'),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$svg$Svg_Attributes$width('85'),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$svg$Svg_Attributes$height('100'),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$svg$Svg_Attributes$rx('10'),
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$svg$Svg_Attributes$ry('10'),
+											_1: {
+												ctor: '::',
+												_0: _elm_lang$svg$Svg_Attributes$style('fill:white;stroke:black;stroke-width:4'),
+												_1: {ctor: '[]'}
+											}
+										}
+									}
+								}
+							}
+						}
+					},
+					{ctor: '[]'}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$svg$Svg$text_,
+						{
+							ctor: '::',
+							_0: _elm_lang$svg$Svg_Attributes$textAnchor('middle'),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$svg$Svg_Attributes$transform(translate_text),
+								_1: {ctor: '[]'}
+							}
+						},
+						{
+							ctor: '::',
+							_0: _elm_lang$svg$Svg$text(
+								_user$project$Deck$shortDisplayCardString(card)),
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				}
+			});
+	});
+var _user$project$Deck$displayCardString = function (card) {
+	if (_elm_lang$core$Native_Utils.eq(card.facing, _user$project$Deck$Down)) {
+		return 'Face Down';
+	} else {
+		var _p1 = card.rank;
+		switch (_p1) {
+			case 1:
+				return A2(_elm_lang$core$Basics_ops['++'], 'Ace of ', card.suit);
+			case 13:
+				return A2(_elm_lang$core$Basics_ops['++'], 'King of ', card.suit);
+			case 12:
+				return A2(_elm_lang$core$Basics_ops['++'], 'Queen of ', card.suit);
+			case 11:
+				return A2(_elm_lang$core$Basics_ops['++'], 'Jack of ', card.suit);
+			default:
+				return A2(
+					_elm_lang$core$Basics_ops['++'],
+					_elm_lang$core$Basics$toString(card.rank),
+					A2(_elm_lang$core$Basics_ops['++'], ' of ', card.suit));
+		}
+	}
+};

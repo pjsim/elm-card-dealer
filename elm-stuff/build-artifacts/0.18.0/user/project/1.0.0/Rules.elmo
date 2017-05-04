@@ -1,0 +1,59 @@
+var _user$project$Rules$displayScore = function (hand) {
+	var ranks = A2(
+		_elm_lang$core$List$map,
+		function (_) {
+			return _.rank;
+		},
+		hand);
+	var result = A3(
+		_elm_lang$core$List$foldr,
+		F2(
+			function (x, y) {
+				return x + y;
+			}),
+		0,
+		ranks);
+	return (_elm_lang$core$Native_Utils.cmp(result, 21) > 0) ? A2(
+		_elm_lang$core$Basics_ops['++'],
+		_elm_lang$core$Basics$toString(result),
+		': Bust') : (_elm_lang$core$Native_Utils.eq(result, 21) ? A2(
+		_elm_lang$core$Basics_ops['++'],
+		_elm_lang$core$Basics$toString(result),
+		': Blackjack') : _elm_lang$core$Basics$toString(result));
+};
+var _user$project$Rules$Lost = {ctor: 'Lost'};
+var _user$project$Rules$Won = {ctor: 'Won'};
+var _user$project$Rules$Staying = {ctor: 'Staying'};
+var _user$project$Rules$calculateScore = F3(
+	function (game_state, player, dealer) {
+		var dealer_ranks = A2(
+			_elm_lang$core$List$map,
+			function (_) {
+				return _.rank;
+			},
+			dealer);
+		var dealer_result = A3(
+			_elm_lang$core$List$foldr,
+			F2(
+				function (x, y) {
+					return x + y;
+				}),
+			0,
+			dealer_ranks);
+		var player_ranks = A2(
+			_elm_lang$core$List$map,
+			function (_) {
+				return _.rank;
+			},
+			player);
+		var player_result = A3(
+			_elm_lang$core$List$foldr,
+			F2(
+				function (x, y) {
+					return x + y;
+				}),
+			0,
+			player_ranks);
+		return (_elm_lang$core$Native_Utils.cmp(player_result, 21) > 0) ? _user$project$Rules$Lost : (_elm_lang$core$Native_Utils.eq(player_result, 21) ? _user$project$Rules$Won : ((_elm_lang$core$Native_Utils.cmp(dealer_result, 21) > 0) ? _user$project$Rules$Won : (((_elm_lang$core$Native_Utils.cmp(player_result, dealer_result) > 0) && _elm_lang$core$Native_Utils.eq(game_state, _user$project$Rules$Staying)) ? _user$project$Rules$Won : ((_elm_lang$core$Native_Utils.cmp(dealer_result, player_result) > 0) ? _user$project$Rules$Lost : game_state))));
+	});
+var _user$project$Rules$Playing = {ctor: 'Playing'};

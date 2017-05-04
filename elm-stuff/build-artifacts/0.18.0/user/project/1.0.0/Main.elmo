@@ -1,0 +1,530 @@
+var _user$project$Main$displayDeckSvg = function (cards) {
+	return A3(
+		_elm_lang$core$List$map2,
+		_user$project$Deck$displayCardSvg,
+		_elm_lang$core$List$reverse(cards),
+		A2(
+			_elm_lang$core$List$range,
+			0,
+			_elm_lang$core$List$length(cards)));
+};
+var _user$project$Main$randomList = F2(
+	function (msg, len) {
+		return A2(
+			_elm_lang$core$Random$generate,
+			msg,
+			A2(
+				_elm_lang$core$Random$list,
+				len,
+				A2(_elm_lang$core$Random$int, 1, 48)));
+	});
+var _user$project$Main$Model = F6(
+	function (a, b, c, d, e, f) {
+		return {deck: a, player_1_hand: b, player_2_hand: c, player_3_hand: d, player_4_hand: e, game_state: f};
+	});
+var _user$project$Main$Player4Turn = {ctor: 'Player4Turn'};
+var _user$project$Main$Player3Turn = {ctor: 'Player3Turn'};
+var _user$project$Main$Player2Turn = {ctor: 'Player2Turn'};
+var _user$project$Main$Player1Turn = {ctor: 'Player1Turn'};
+var _user$project$Main$Deal = {ctor: 'Deal'};
+var _user$project$Main$view = function (model) {
+	var displayPlayer4Hand = _user$project$Main$displayDeckSvg(model.player_4_hand);
+	var displayPlayer3Hand = _user$project$Main$displayDeckSvg(model.player_3_hand);
+	var displayPlayer2Hand = _user$project$Main$displayDeckSvg(model.player_2_hand);
+	var displayPlayer1Hand = _user$project$Main$displayDeckSvg(model.player_1_hand);
+	var displayDeck = _user$project$Main$displayDeckSvg(model.deck);
+	return A2(
+		_elm_lang$html$Html$div,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$div,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$h4,
+						{ctor: '[]'},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text('Deck'),
+							_1: {ctor: '[]'}
+						}),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$h5,
+							{ctor: '[]'},
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html$text(
+									_elm_lang$core$Basics$toString(model.deck)),
+								_1: {ctor: '[]'}
+							}),
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_elm_lang$svg$Svg$svg,
+								{
+									ctor: '::',
+									_0: _elm_lang$svg$Svg_Attributes$width('1200'),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$svg$Svg_Attributes$height('200'),
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$svg$Svg_Attributes$viewBox('0 0 400 200'),
+											_1: {ctor: '[]'}
+										}
+									}
+								},
+								displayDeck),
+							_1: {ctor: '[]'}
+						}
+					}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$div,
+					{ctor: '[]'},
+					{
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$button,
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html_Events$onClick(_user$project$Main$Deal),
+								_1: {ctor: '[]'}
+							},
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html$text('Deal'),
+								_1: {ctor: '[]'}
+							}),
+						_1: {ctor: '[]'}
+					}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$table,
+						{ctor: '[]'},
+						{
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$tr,
+								{ctor: '[]'},
+								{
+									ctor: '::',
+									_0: A2(
+										_elm_lang$html$Html$td,
+										{ctor: '[]'},
+										{
+											ctor: '::',
+											_0: A2(
+												_elm_lang$html$Html$div,
+												{ctor: '[]'},
+												{
+													ctor: '::',
+													_0: A2(
+														_elm_lang$html$Html$h4,
+														{ctor: '[]'},
+														{
+															ctor: '::',
+															_0: _elm_lang$html$Html$text('Player 1 Hand'),
+															_1: {ctor: '[]'}
+														}),
+													_1: {
+														ctor: '::',
+														_0: A2(
+															_elm_lang$html$Html$h5,
+															{ctor: '[]'},
+															{
+																ctor: '::',
+																_0: _elm_lang$html$Html$text(
+																	_elm_lang$core$Basics$toString(model.player_1_hand)),
+																_1: {ctor: '[]'}
+															}),
+														_1: {
+															ctor: '::',
+															_0: A2(
+																_elm_lang$svg$Svg$svg,
+																{
+																	ctor: '::',
+																	_0: _elm_lang$svg$Svg_Attributes$width('500'),
+																	_1: {
+																		ctor: '::',
+																		_0: _elm_lang$svg$Svg_Attributes$height('200'),
+																		_1: {
+																			ctor: '::',
+																			_0: _elm_lang$svg$Svg_Attributes$viewBox('0 0 400 100'),
+																			_1: {ctor: '[]'}
+																		}
+																	}
+																},
+																displayPlayer1Hand),
+															_1: {ctor: '[]'}
+														}
+													}
+												}),
+											_1: {ctor: '[]'}
+										}),
+									_1: {
+										ctor: '::',
+										_0: A2(
+											_elm_lang$html$Html$td,
+											{ctor: '[]'},
+											{
+												ctor: '::',
+												_0: A2(
+													_elm_lang$html$Html$div,
+													{ctor: '[]'},
+													{
+														ctor: '::',
+														_0: A2(
+															_elm_lang$html$Html$h4,
+															{ctor: '[]'},
+															{
+																ctor: '::',
+																_0: _elm_lang$html$Html$text('Player 2 Hand'),
+																_1: {ctor: '[]'}
+															}),
+														_1: {
+															ctor: '::',
+															_0: A2(
+																_elm_lang$html$Html$h5,
+																{ctor: '[]'},
+																{
+																	ctor: '::',
+																	_0: _elm_lang$html$Html$text(
+																		_elm_lang$core$Basics$toString(model.player_2_hand)),
+																	_1: {ctor: '[]'}
+																}),
+															_1: {
+																ctor: '::',
+																_0: A2(
+																	_elm_lang$svg$Svg$svg,
+																	{
+																		ctor: '::',
+																		_0: _elm_lang$svg$Svg_Attributes$width('500'),
+																		_1: {
+																			ctor: '::',
+																			_0: _elm_lang$svg$Svg_Attributes$height('200'),
+																			_1: {
+																				ctor: '::',
+																				_0: _elm_lang$svg$Svg_Attributes$viewBox('0 0 400 100'),
+																				_1: {ctor: '[]'}
+																			}
+																		}
+																	},
+																	displayPlayer2Hand),
+																_1: {ctor: '[]'}
+															}
+														}
+													}),
+												_1: {ctor: '[]'}
+											}),
+										_1: {ctor: '[]'}
+									}
+								}),
+							_1: {
+								ctor: '::',
+								_0: A2(
+									_elm_lang$html$Html$tr,
+									{ctor: '[]'},
+									{
+										ctor: '::',
+										_0: A2(
+											_elm_lang$html$Html$td,
+											{ctor: '[]'},
+											{
+												ctor: '::',
+												_0: A2(
+													_elm_lang$html$Html$div,
+													{ctor: '[]'},
+													{
+														ctor: '::',
+														_0: A2(
+															_elm_lang$html$Html$h4,
+															{ctor: '[]'},
+															{
+																ctor: '::',
+																_0: _elm_lang$html$Html$text('Player 3 Hand'),
+																_1: {ctor: '[]'}
+															}),
+														_1: {
+															ctor: '::',
+															_0: A2(
+																_elm_lang$html$Html$h5,
+																{ctor: '[]'},
+																{
+																	ctor: '::',
+																	_0: _elm_lang$html$Html$text(
+																		_elm_lang$core$Basics$toString(model.player_3_hand)),
+																	_1: {ctor: '[]'}
+																}),
+															_1: {
+																ctor: '::',
+																_0: A2(
+																	_elm_lang$svg$Svg$svg,
+																	{
+																		ctor: '::',
+																		_0: _elm_lang$svg$Svg_Attributes$width('500'),
+																		_1: {
+																			ctor: '::',
+																			_0: _elm_lang$svg$Svg_Attributes$height('200'),
+																			_1: {
+																				ctor: '::',
+																				_0: _elm_lang$svg$Svg_Attributes$viewBox('0 0 400 100'),
+																				_1: {ctor: '[]'}
+																			}
+																		}
+																	},
+																	displayPlayer3Hand),
+																_1: {ctor: '[]'}
+															}
+														}
+													}),
+												_1: {ctor: '[]'}
+											}),
+										_1: {
+											ctor: '::',
+											_0: A2(
+												_elm_lang$html$Html$td,
+												{ctor: '[]'},
+												{
+													ctor: '::',
+													_0: A2(
+														_elm_lang$html$Html$div,
+														{ctor: '[]'},
+														{
+															ctor: '::',
+															_0: A2(
+																_elm_lang$html$Html$h4,
+																{ctor: '[]'},
+																{
+																	ctor: '::',
+																	_0: _elm_lang$html$Html$text('Player 4 Hand'),
+																	_1: {ctor: '[]'}
+																}),
+															_1: {
+																ctor: '::',
+																_0: A2(
+																	_elm_lang$html$Html$h5,
+																	{ctor: '[]'},
+																	{
+																		ctor: '::',
+																		_0: _elm_lang$html$Html$text(
+																			_elm_lang$core$Basics$toString(model.player_4_hand)),
+																		_1: {ctor: '[]'}
+																	}),
+																_1: {
+																	ctor: '::',
+																	_0: A2(
+																		_elm_lang$svg$Svg$svg,
+																		{
+																			ctor: '::',
+																			_0: _elm_lang$svg$Svg_Attributes$width('500'),
+																			_1: {
+																				ctor: '::',
+																				_0: _elm_lang$svg$Svg_Attributes$height('200'),
+																				_1: {
+																					ctor: '::',
+																					_0: _elm_lang$svg$Svg_Attributes$viewBox('0 0 400 100'),
+																					_1: {ctor: '[]'}
+																				}
+																			}
+																		},
+																		displayPlayer4Hand),
+																	_1: {ctor: '[]'}
+																}
+															}
+														}),
+													_1: {ctor: '[]'}
+												}),
+											_1: {ctor: '[]'}
+										}
+									}),
+								_1: {ctor: '[]'}
+							}
+						}),
+					_1: {ctor: '[]'}
+				}
+			}
+		});
+};
+var _user$project$Main$SortDeck = {ctor: 'SortDeck'};
+var _user$project$Main$ShuffleDeck = {ctor: 'ShuffleDeck'};
+var _user$project$Main$Shuffle = function (a) {
+	return {ctor: 'Shuffle', _0: a};
+};
+var _user$project$Main$newGame = {
+	ctor: '_Tuple2',
+	_0: A6(
+		_user$project$Main$Model,
+		_user$project$Deck$generateDeck,
+		{ctor: '[]'},
+		{ctor: '[]'},
+		{ctor: '[]'},
+		{ctor: '[]'},
+		_user$project$Main$Player1Turn),
+	_1: A2(_user$project$Main$randomList, _user$project$Main$Shuffle, 48)
+};
+var _user$project$Main$update = F2(
+	function (msg, model) {
+		var _p0 = msg;
+		switch (_p0.ctor) {
+			case 'Shuffle':
+				var newDeck = A2(_user$project$Deck$shuffleDeck, model.deck, _p0._0);
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					A6(
+						_user$project$Main$Model,
+						newDeck,
+						{ctor: '[]'},
+						{ctor: '[]'},
+						{ctor: '[]'},
+						{ctor: '[]'},
+						model.game_state),
+					{ctor: '[]'});
+			case 'ShuffleDeck':
+				return {
+					ctor: '_Tuple2',
+					_0: model,
+					_1: A2(_user$project$Main$randomList, _user$project$Main$Shuffle, 48)
+				};
+			case 'SortDeck':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{
+							deck: A2(
+								_elm_lang$core$List$sortBy,
+								function (_) {
+									return _.index;
+								},
+								model.deck)
+						}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			default:
+				var _p1 = function () {
+					var _p2 = model.game_state;
+					switch (_p2.ctor) {
+						case 'Player1Turn':
+							return {ctor: '_Tuple2', _0: model.player_1_hand, _1: _user$project$Main$Player2Turn};
+						case 'Player2Turn':
+							return {ctor: '_Tuple2', _0: model.player_2_hand, _1: _user$project$Main$Player3Turn};
+						case 'Player3Turn':
+							return {ctor: '_Tuple2', _0: model.player_3_hand, _1: _user$project$Main$Player4Turn};
+						default:
+							return {ctor: '_Tuple2', _0: model.player_4_hand, _1: _user$project$Main$Player1Turn};
+					}
+				}();
+				var player_hand = _p1._0;
+				var next_turn = _p1._1;
+				var _p3 = _user$project$Deck$deal(model.deck);
+				var dealtCard = _p3._0;
+				var restOfDeck = _p3._1;
+				var _p4 = dealtCard;
+				if (_p4.ctor === 'Just') {
+					var _p8 = _p4._0;
+					var _p5 = restOfDeck;
+					if (_p5.ctor === 'Just') {
+						var _p7 = _p5._0;
+						var _p6 = model.game_state;
+						switch (_p6.ctor) {
+							case 'Player1Turn':
+								return A2(
+									_elm_lang$core$Platform_Cmd_ops['!'],
+									_elm_lang$core$Native_Utils.update(
+										model,
+										{
+											player_1_hand: {
+												ctor: '::',
+												_0: _elm_lang$core$Native_Utils.update(
+													_p8,
+													{facing: _user$project$Deck$Up}),
+												_1: player_hand
+											},
+											deck: _p7,
+											game_state: next_turn
+										}),
+									{ctor: '[]'});
+							case 'Player2Turn':
+								return A2(
+									_elm_lang$core$Platform_Cmd_ops['!'],
+									_elm_lang$core$Native_Utils.update(
+										model,
+										{
+											player_2_hand: {
+												ctor: '::',
+												_0: _elm_lang$core$Native_Utils.update(
+													_p8,
+													{facing: _user$project$Deck$Up}),
+												_1: player_hand
+											},
+											deck: _p7,
+											game_state: next_turn
+										}),
+									{ctor: '[]'});
+							case 'Player3Turn':
+								return A2(
+									_elm_lang$core$Platform_Cmd_ops['!'],
+									_elm_lang$core$Native_Utils.update(
+										model,
+										{
+											player_3_hand: {
+												ctor: '::',
+												_0: _elm_lang$core$Native_Utils.update(
+													_p8,
+													{facing: _user$project$Deck$Up}),
+												_1: player_hand
+											},
+											deck: _p7,
+											game_state: next_turn
+										}),
+									{ctor: '[]'});
+							default:
+								return A2(
+									_elm_lang$core$Platform_Cmd_ops['!'],
+									_elm_lang$core$Native_Utils.update(
+										model,
+										{
+											player_4_hand: {
+												ctor: '::',
+												_0: _elm_lang$core$Native_Utils.update(
+													_p8,
+													{facing: _user$project$Deck$Up}),
+												_1: player_hand
+											},
+											deck: _p7,
+											game_state: next_turn
+										}),
+									{ctor: '[]'});
+						}
+					} else {
+						return A2(
+							_elm_lang$core$Platform_Cmd_ops['!'],
+							model,
+							{ctor: '[]'});
+					}
+				} else {
+					return A2(
+						_elm_lang$core$Platform_Cmd_ops['!'],
+						model,
+						{ctor: '[]'});
+				}
+		}
+	});
+var _user$project$Main$main = _elm_lang$html$Html$program(
+	{
+		init: _user$project$Main$newGame,
+		update: _user$project$Main$update,
+		view: _user$project$Main$view,
+		subscriptions: function (_p9) {
+			return _elm_lang$core$Platform_Sub$none;
+		}
+	})();
